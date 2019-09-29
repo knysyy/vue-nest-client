@@ -1,21 +1,74 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link>
-      <router-link to="/about">About</router-link>
-      <router-link to="/signup">Signup</router-link>
-      <router-link to="/login">Login</router-link>
-      <span v-if="isLoggedIn"> | <a @click="logout">Logout</a></span>
-    </div>
-    <router-view />
-  </div>
+  <v-app id="app" dark>
+    <v-navigation-drawer v-model="drawer" :clipped="clipped" app>
+      <v-list>
+        <v-list-item
+          v-for="(item, i) in items"
+          :key="i"
+          :to="item.to"
+          router
+          exact
+        >
+          <v-list-item-action>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title v-text="item.title" />
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+    <v-app-bar :clipped-left="clipped" fixed app>
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+      <v-toolbar-title v-text="title" />
+      <v-spacer />
+      <span v-if="!isAuthenticated">
+        <v-btn icon to="/login">
+          <v-icon>mdi-login</v-icon>
+        </v-btn>
+        <v-btn icon to="/signup">
+          <v-icon>mdi-account-plus</v-icon>
+        </v-btn>
+      </span>
+      <span v-if="isAuthenticated">
+        <v-btn icon @click="logout">
+          <v-icon>mdi-logout</v-icon>
+        </v-btn>
+      </span>
+    </v-app-bar>
+    <v-content>
+      <router-view />
+    </v-content>
+    <v-footer app>
+      <span>&copy; 2019</span>
+    </v-footer>
+  </v-app>
 </template>
 
 <script>
 export default {
+  data: function() {
+    return {
+      clipped: false,
+      drawer: false,
+      items: [
+        {
+          icon: "mdi-apps",
+          title: "Home",
+          to: "/"
+        },
+        {
+          icon: "mdi-account-box",
+          title: "About",
+          to: "/about"
+        }
+      ],
+      title: "Vuetify.js"
+    };
+  },
   computed: {
-    isLoggedIn: function() {
-      return this.$store.getters.isLoggedIn;
+    isAuthenticated: function() {
+      return this.$store.getters.isAuthenticated;
     }
   },
   methods: {

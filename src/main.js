@@ -10,7 +10,6 @@ Vue.config.productionTip = false;
 axios.defaults.baseURL = "http://localhost:3000/api";
 
 const accessToken = localStorage.getItem("access_token");
-
 if (accessToken) {
   axios.defaults.headers.common["Authorization"] = accessToken;
 }

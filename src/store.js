@@ -34,6 +34,7 @@ export default new Vuex.Store({
         axios({ url: "/auth/login", data: user, method: "POST" })
           .then(resp => {
             const token = resp.data.data.token;
+            localStorage.setItem("access_token", token);
             commit("auth_success", token, user);
             resolve(resp);
           })
@@ -72,7 +73,7 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    isLoggedIn: state => !!state.token,
+    isAuthenticated: state => !!state.token,
     authStatus: state => state.status
   }
 });

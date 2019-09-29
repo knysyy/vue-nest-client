@@ -14,7 +14,10 @@ let router = new Router({
     {
       path: "/",
       name: "home",
-      component: Home
+      component: Home,
+      meta: {
+        isPublic: true
+      }
     },
     {
       path: "/about",
@@ -23,31 +26,36 @@ let router = new Router({
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () =>
-        import(/* webpackChunkName: "about" */ "./views/About.vue"),
-      meta: {
-        requireAuth: true
-      }
+        import(/* webpackChunkName: "about" */ "./views/About.vue")
     },
     {
       path: "/signup",
       name: "signup",
-      component: Signup
+      component: Signup,
+      meta: {
+        isPublic: true
+      }
     },
     {
       path: "/login",
       name: "login",
-      component: Login
+      component: Login,
+      meta: {
+        isPublic: true
+      }
     }
   ]
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requireAuth)) {
-    if (store.getters.isLoggedIn) {
-      next();
-      return;
-    }
-    next("/login");
+  if (
+    to.matched.some(record => !record.meta.isPublic) &&
+    !store.getters.isAuthenticated
+  ) {
+    next({
+      path: "/login",
+      query: { redirect: to.fullPath }
+    });
   } else {
     next();
   }

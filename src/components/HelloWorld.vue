@@ -107,10 +107,6 @@ export default {
       {
         text: "Twitter",
         href: "https://twitter.com/vuetifyjs"
-      },
-      {
-        text: "Articles",
-        href: "https://medium.com/vuetify"
       }
     ],
     whatsNext: [
