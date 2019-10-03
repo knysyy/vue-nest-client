@@ -50,7 +50,7 @@ let router = new Router({
 router.beforeEach((to, from, next) => {
   if (
     to.matched.some(record => !record.meta.isPublic) &&
-    !store.getters.isAuthenticated
+    !store.getters["auth/isAuthenticated"]
   ) {
     next({
       path: "/login",
