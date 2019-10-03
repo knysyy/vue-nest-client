@@ -9,9 +9,9 @@ import axios from "axios";
 Vue.config.productionTip = false;
 axios.defaults.baseURL = "http://localhost:3000/api";
 
-const accessToken = localStorage.getItem("access_token");
-if (accessToken) {
-  axios.defaults.headers.common["Authorization"] = accessToken;
+const token = localStorage.getItem("access_token");
+if (token) {
+  axios.defaults.headers.common["Authorization"] = "Bearer " + token;
 }
 
 new Vue({
