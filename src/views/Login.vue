@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -52,12 +53,14 @@ export default {
     };
   },
   methods: {
-    login: function() {
+    ...mapMutations("app", ["setSnackBar", "setSnackBarText"]),
+    login: async function() {
       const email = this.email;
       const password = this.password;
-      this.$store
-        .dispatch("auth/login", { email, password })
-        .then(() => this.$router.push(this.$route.query.redirect || "/"));
+      await this.$store.dispatch("auth/login", { email, password });
+      await this.$router.push(this.$route.query.redirect || "/");
+      this.setSnackBarText("Login Successfully");
+      this.setSnackBar(true);
     }
   }
 };

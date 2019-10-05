@@ -42,14 +42,20 @@ export default {
     }
   },
   methods: {
-    ...mapMutations("app", ["setDrawer", "toggleDrawer"]),
+    ...mapMutations("app", [
+      "setDrawer",
+      "toggleDrawer",
+      "setSnackBarText",
+      "setSnackBar"
+    ]),
     onClick() {
       this.setDrawer(!this.$store.state.app.drawer);
     },
-    logout() {
-      this.$store.dispatch("auth/logout").then(() => {
-        this.$router.push("/login");
-      });
+    async logout() {
+      await this.$store.dispatch("auth/logout");
+      await this.$router.push("/login");
+      this.setSnackBarText("Logout Successfully");
+      this.setSnackBar(true);
     }
   }
 };

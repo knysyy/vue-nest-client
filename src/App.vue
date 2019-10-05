@@ -4,6 +4,7 @@
     <core-drawer />
     <core-view />
     <core-footer />
+    <core-snack-bar />
   </v-app>
 </template>
 
@@ -13,7 +14,8 @@ export default {
     CoreAppBar: () => import("@/components/AppBar"),
     CoreDrawer: () => import("@/components/Drawer"),
     CoreFooter: () => import("@/components/Footer"),
-    CoreView: () => import("@/components/View")
+    CoreView: () => import("@/components/View"),
+    CoreSnackBar: () => import("@/components/SnackBar.vue")
   }
 };
 </script>
