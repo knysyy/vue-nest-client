@@ -6,12 +6,7 @@
 
     <v-spacer />
 
-    <template v-if="isAuthenticated">
-      <v-btn icon @click="logout">
-        <v-icon>mdi-logout</v-icon>
-      </v-btn>
-    </template>
-    <template v-else>
+    <template v-if="!isAuthenticated">
       <v-btn icon to="/login">
         <v-icon>mdi-login</v-icon>
       </v-btn>
@@ -42,20 +37,9 @@ export default {
     }
   },
   methods: {
-    ...mapMutations("app", [
-      "setDrawer",
-      "toggleDrawer",
-      "setSnackBarText",
-      "setSnackBar"
-    ]),
+    ...mapMutations("app", ["setDrawer", "toggleDrawer"]),
     onClick() {
       this.setDrawer(!this.$store.state.app.drawer);
-    },
-    async logout() {
-      await this.$store.dispatch("auth/logout");
-      await this.$router.push("/login");
-      this.setSnackBarText("Logout Successfully");
-      this.setSnackBar(true);
     }
   }
 };

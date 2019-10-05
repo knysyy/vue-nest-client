@@ -4,6 +4,7 @@ import store from "./store";
 import Home from "./views/Home.vue";
 import Signup from "./views/Signup";
 import Login from "./views/Login";
+import User from "./views/User";
 
 Vue.use(Router);
 
@@ -13,7 +14,7 @@ let router = new Router({
   routes: [
     {
       path: "/",
-      name: "home",
+      name: "Home",
       component: Home,
       meta: {
         isPublic: true
@@ -21,7 +22,7 @@ let router = new Router({
     },
     {
       path: "/about",
-      name: "about",
+      name: "About",
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
@@ -30,7 +31,7 @@ let router = new Router({
     },
     {
       path: "/signup",
-      name: "signup",
+      name: "SignUp",
       component: Signup,
       meta: {
         isPublic: true
@@ -38,11 +39,16 @@ let router = new Router({
     },
     {
       path: "/login",
-      name: "login",
+      name: "Login",
       component: Login,
       meta: {
         isPublic: true
       }
+    },
+    {
+      path: "/user",
+      name: "User",
+      component: User
     }
   ]
 });

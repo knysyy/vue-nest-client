@@ -45,15 +45,14 @@
       </v-list-item>
     </v-list>
 
-    <template v-slot:append>
+    <template v-slot:append v-if="isAuthenticated">
       <v-list nav>
-        <v-list-item to="/upgrade">
+        <v-list-item @click="logout">
           <v-list-item-action>
-            <v-icon>mdi-package-up</v-icon>
+            <v-icon>mdi-logout</v-icon>
           </v-list-item-action>
-
           <v-list-item-title class="font-weight-light">
-            Upgrade To PRO
+            Logout
           </v-list-item-title>
         </v-list-item>
       </v-list>
@@ -62,7 +61,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
 export default {
   data: () => ({
     links: [
@@ -72,7 +71,7 @@ export default {
         text: "Dashboard"
       },
       {
-        to: "/user-profile",
+        to: "/user",
         icon: "mdi-account",
         text: "User Profile"
       },
@@ -104,6 +103,7 @@ export default {
     ]
   }),
   computed: {
+    ...mapGetters("auth", ["isAuthenticated"]),
     inputValue: {
       get() {
         return this.$store.state.app.drawer;
@@ -114,7 +114,18 @@ export default {
     }
   },
   methods: {
-    ...mapMutations("app", ["setDrawer", "toggleDrawer"])
+    ...mapMutations("app", [
+      "setDrawer",
+      "toggleDrawer",
+      "setSnackBarText",
+      "setSnackBar"
+    ]),
+    async logout() {
+      await this.$store.dispatch("auth/logout");
+      await this.$router.push("/login");
+      this.setSnackBarText("Logout Successfully");
+      this.setSnackBar(true);
+    }
   }
 };
 </script>

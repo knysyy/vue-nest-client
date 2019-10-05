@@ -1,16 +1,16 @@
 <template>
   <v-container class="fill-height" fluid>
     <v-layout>
-      <v-row align="center" justify="center">
-        <v-col cols="12" sm="8" md="4">
+      <v-row>
+        <v-col xs="12" sm="8" md="6" offset-sm="2" offset-md="3">
           <v-card class="elevation-12">
-            <v-toolbar color="success" dark flat>
+            <v-toolbar color="success" flat>
               <v-toolbar-title>Login Form</v-toolbar-title>
               <div class="flex-grow-1"></div>
             </v-toolbar>
             <v-card-text>
               <div class="icon">
-                <v-icon size="100">
+                <v-icon avator size="100">
                   mdi-account-check
                 </v-icon>
               </div>
@@ -31,8 +31,15 @@
             </v-card-text>
             <v-card-actions>
               <v-row justify="center">
-                <v-btn color="success" min-width="100" @click="login">
+                <v-btn color="success" min-width="200" @click="login">
                   Login
+                </v-btn>
+              </v-row>
+            </v-card-actions>
+            <v-card-actions>
+              <v-row justify="center">
+                <v-btn text small color="primary">
+                  Forgot Password?
                 </v-btn>
               </v-row>
             </v-card-actions>

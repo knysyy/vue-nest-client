@@ -1,16 +1,15 @@
 import * as authStatuses from "./statuses";
 
 export default {
-  auth_request(state) {
+  authRequest(state) {
     state.status = authStatuses.AUTH_LOADING;
     state.err = null;
   },
-  auth_success(state, token, user) {
+  authSuccess(state, token) {
     state.status = authStatuses.AUTH_SUCCESS;
     state.token = token;
-    state.user = user;
   },
-  auth_error(state) {
+  authError(state) {
     state.status = authStatuses.AUTH_ERROR;
   },
   logout(state, err) {
@@ -18,5 +17,8 @@ export default {
     state.token = null;
     state.user = {};
     state.error = err;
+  },
+  setUser(state, user) {
+    state.user = user;
   }
 };
