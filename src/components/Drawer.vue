@@ -14,22 +14,6 @@
       />
     </template>
 
-    <v-list-item two-line>
-      <v-list-item-avatar color="white">
-        <v-img
-          src="https://cdn.vuetifyjs.com/images/logos/v.png"
-          height="34"
-          contain
-        />
-      </v-list-item-avatar>
-
-      <v-list-item-title class="title">
-        VUETIFY MD
-      </v-list-item-title>
-    </v-list-item>
-
-    <v-divider class="mx-3 mb-3" />
-
     <v-list nav>
       <v-list-item
         v-for="(link, i) in links"
@@ -76,29 +60,14 @@ export default {
         text: "User Profile"
       },
       {
-        to: "/table-list",
-        icon: "mdi-clipboard-outline",
-        text: "Table List"
+        to: "/snippet",
+        icon: "mdi-code-tags",
+        text: "Snippet"
       },
       {
-        to: "/typography",
-        icon: "mdi-format-font",
-        text: "Typography"
-      },
-      {
-        to: "/icons",
-        icon: "mdi-chart-bubble",
-        text: "Icons"
-      },
-      {
-        to: "/maps",
-        icon: "mdi-map-marker",
-        text: "Maps"
-      },
-      {
-        to: "/notifications",
-        icon: "mdi-bell",
-        text: "Notifications"
+        to: "/label",
+        icon: "mdi-label",
+        text: "Label"
       }
     ]
   }),

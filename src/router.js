@@ -5,6 +5,8 @@ import Home from "./views/Home.vue";
 import Signup from "./views/Signup";
 import Login from "./views/Login";
 import User from "./views/User";
+import Snippet from "./views/Snippet";
+import Label from "./views/Label";
 
 Vue.use(Router);
 
@@ -49,6 +51,16 @@ let router = new Router({
       path: "/user",
       name: "User",
       component: User
+    },
+    {
+      path: "/snippet",
+      name: "Snippet",
+      component: Snippet
+    },
+    {
+      path: "/label",
+      name: "Label",
+      component: Label
     }
   ]
 });

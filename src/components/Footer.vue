@@ -1,5 +1,5 @@
 <template>
-  <v-footer absolute>
+  <v-footer app height="auto">
     <v-spacer />
     <span class="font-weight-light copyright">
       &copy;
