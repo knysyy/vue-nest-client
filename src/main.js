@@ -4,15 +4,9 @@ import router from "./router";
 import store from "./store";
 import "./registerServiceWorker";
 import vuetify from "./plugins/vuetify";
-import axios from "axios";
+import "./plugins";
 
 Vue.config.productionTip = false;
-axios.defaults.baseURL = "http://localhost:3000/api";
-
-const token = localStorage.getItem("access_token");
-if (token) {
-  axios.defaults.headers.common["Authorization"] = "Bearer " + token;
-}
 
 new Vue({
   router,
