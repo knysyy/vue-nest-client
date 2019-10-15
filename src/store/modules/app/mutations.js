@@ -4,5 +4,6 @@ export default {
   setDrawer: set("drawer"),
   toggleDrawer: toggle("drawer"),
   setSnackBar: set("snackbar"),
-  setSnackBarText: set("snackbarText")
+  setSnackBarText: set("snackbarText"),
+  setSnackBarColor: set("snackbarColor")
 };

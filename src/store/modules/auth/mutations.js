@@ -9,14 +9,14 @@ export default {
     state.status = authStatuses.AUTH_SUCCESS;
     state.token = token;
   },
-  authError(state) {
+  authError(state, err) {
     state.status = authStatuses.AUTH_ERROR;
+    state.error = err;
   },
-  logout(state, err) {
+  logout(state) {
     state.status = authStatuses.AUTH_DEFAULT;
     state.token = null;
     state.user = {};
-    state.error = err;
   },
   setUser(state, user) {
     state.user = user;

@@ -1,5 +1,5 @@
 <template>
-  <v-snackbar v-model="snackbar" :timeout="timeout" color="success" top>
+  <v-snackbar v-model="snackbar" :timeout="timeout" :color="snackbarColor" top>
     {{ snackbarText }}
     <v-btn color="white" text @click="onClick">
       Close
@@ -14,7 +14,7 @@ export default {
     timeout: 3000
   }),
   computed: {
-    ...mapState("app", ["snackbarText"]),
+    ...mapState("app", ["snackbarText", "snackbarColor"]),
     snackbar: {
       get() {
         return this.$store.state.app.snackbar;

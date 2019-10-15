@@ -1,13 +1,8 @@
 <template>
   <v-container>
-    <v-list>
-      <template v-for="(label, index) in labels">
-        <v-list-item :key="label.id" class="mb-2">
-          <v-list-item-title>{{ label.title }}</v-list-item-title>
-        </v-list-item>
-        <v-divider v-if="index + 1 < labels.length" :key="index" />
-      </template>
-    </v-list>
+    <v-card v-for="label of labels" :key="label.id" class="mb-1">
+      <v-card-text>{{ label.title }}</v-card-text>
+    </v-card>
   </v-container>
 </template>
 

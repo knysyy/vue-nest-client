@@ -60,14 +60,27 @@ export default {
     };
   },
   methods: {
-    ...mapMutations("app", ["setSnackBar", "setSnackBarText"]),
+    ...mapMutations("app", [
+      "setSnackBar",
+      "setSnackBarText",
+      "setSnackBarColor"
+    ]),
     login: async function() {
       const email = this.email;
       const password = this.password;
-      await this.$store.dispatch("auth/login", { email, password });
-      await this.$router.push(this.$route.query.redirect || "/");
-      this.setSnackBarText("Login Successfully");
-      this.setSnackBar(true);
+      this.$store
+        .dispatch("auth/login", { email, password })
+        .then(async () => {
+          await this.$router.push(this.$route.query.redirect || "/");
+          this.setSnackBarText("Login Successfully");
+          this.setSnackBarColor("primary");
+          this.setSnackBar(true);
+        })
+        .catch(() => {
+          this.setSnackBarText("Email Or Password is wrong");
+          this.setSnackBarColor("error");
+          this.setSnackBar(true);
+        });
     }
   }
 };

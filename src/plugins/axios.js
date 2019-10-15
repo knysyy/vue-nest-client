@@ -1,5 +1,22 @@
 import axios from "axios";
+import store from "../store";
+import router from "../router";
+import { mapMutations } from "vuex";
 
+axios.interceptors.response.use(
+  res => {
+    return res;
+  },
+  async err => {
+    if (err.response.status === 401) {
+      store.commit("auth/logout");
+      store.commit("app/setSnackBarText", "Please Login");
+      store.commit("app/setSnackBarColor", "error");
+      store.commit("app/setSnackBar", true);
+      await router.push("/login");
+    }
+  }
+);
 axios.defaults.baseURL = "http://localhost:3000/api";
 const token = localStorage.getItem("access_token");
 

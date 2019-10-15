@@ -1,5 +1,6 @@
 export default {
   drawer: false,
   snackbar: false,
-  snackbarText: ""
+  snackbarText: "",
+  snackbarColor: "success"
 };
