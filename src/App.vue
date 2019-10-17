@@ -11,11 +11,11 @@
 <script>
 export default {
   components: {
-    CoreAppBar: () => import("@/components/AppBar"),
-    CoreDrawer: () => import("@/components/Drawer"),
-    CoreFooter: () => import("@/components/Footer"),
-    CoreView: () => import("@/components/View"),
-    CoreSnackBar: () => import("@/components/SnackBar.vue")
+    CoreAppBar: () => import("@/components/core/AppBar"),
+    CoreDrawer: () => import("@/components/core/Drawer"),
+    CoreFooter: () => import("@/components/core/Footer"),
+    CoreView: () => import("@/components/core/View"),
+    CoreSnackBar: () => import("@/components/core/SnackBar.vue")
   }
 };
 </script>

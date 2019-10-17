@@ -7,6 +7,8 @@ import Login from "./views/Login";
 import User from "./views/User";
 import Snippet from "./views/Snippet";
 import Label from "./views/Label";
+import SnippetFooter from "./components/snippet/SnippetFooter";
+import LabelFooter from "./components/label/LabelFooter";
 
 Vue.use(Router);
 
@@ -55,12 +57,18 @@ let router = new Router({
     {
       path: "/snippet",
       name: "Snippet",
-      component: Snippet
+      components: {
+        default: Snippet,
+        snippet: SnippetFooter
+      }
     },
     {
       path: "/label",
       name: "Label",
-      component: Label
+      components: {
+        default: Label,
+        label: LabelFooter
+      }
     }
   ]
 });

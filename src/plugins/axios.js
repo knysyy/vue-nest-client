@@ -1,7 +1,6 @@
 import axios from "axios";
 import store from "../store";
 import router from "../router";
-import { mapMutations } from "vuex";
 
 axios.interceptors.response.use(
   res => {

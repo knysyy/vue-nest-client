@@ -7,5 +7,6 @@ module.exports = {
         "@": path.resolve(__dirname, "src")
       }
     }
-  }
+  },
+  outputDir: path.resolve(__dirname, "../server/public")
 };
