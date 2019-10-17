@@ -31,33 +31,28 @@
         </v-card>
       </v-col>
     </v-row>
+    <search-dialog />
   </v-container>
 </template>
 
 <script>
-import axios from "axios";
 import hljs from "highlight.js";
 export default {
-  data() {
-    return {
-      snippets: []
-    };
+  computed: {
+    snippets() {
+      return this.$store.state.snippet.snippets;
+    }
   },
   mounted() {
-    axios.post("/snippets").then(res => {
-      this.snippets = res.data.data.snippets;
-    });
+    this.$store.dispatch("snippet/getSnippets");
   },
   methods: {
     getHighLight(content, language) {
       return hljs.highlightAuto(content, [language]).value;
     }
+  },
+  components: {
+    SearchDialog: () => import("@/components/snippet/SearchDialog")
   }
 };
 </script>
-
-<style>
-code.hljs {
-  width: 100%;
-}
-</style>

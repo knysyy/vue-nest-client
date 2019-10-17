@@ -1,7 +1,7 @@
 <template>
   <v-row justify="center">
     <v-col class="pa-1">
-      <v-btn color="orange" block>
+      <v-btn color="orange" block @click="toggleDialog">
         <v-icon left>mdi-magnify</v-icon>
         Search
       </v-btn>
@@ -16,5 +16,10 @@
 </template>
 
 <script>
-export default {};
+import { mapMutations } from "vuex";
+export default {
+  methods: {
+    ...mapMutations("snippet", ["toggleDialog"])
+  }
+};
 </script>

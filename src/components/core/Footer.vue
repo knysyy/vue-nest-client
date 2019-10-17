@@ -1,5 +1,5 @@
 <template>
-  <v-footer app height="auto">
+  <v-footer app>
     <router-view name="label"></router-view>
     <router-view name="snippet"></router-view>
   </v-footer>
