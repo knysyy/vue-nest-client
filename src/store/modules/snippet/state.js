@@ -1,8 +1,9 @@
-import * as snippetStatuses from "./statuses";
+import * as snippetsStatuses from "./statuses";
 
 export default {
-  status: snippetStatuses.SNIPPET_DEFAULT,
+  status: snippetsStatuses.SNIPPET_DEFAULT,
   dialog: false,
   snippets: [],
+  languages: [],
   err: null
 };

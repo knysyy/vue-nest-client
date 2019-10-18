@@ -50,7 +50,6 @@ export default {
   },
   mounted() {
     const user = this.$store.state.auth.user;
-    console.log(user);
     if (!user.name || !user.email) {
       this.$store.dispatch("auth/getUser");
     }

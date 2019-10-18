@@ -1,7 +1,7 @@
 <template>
   <v-row justify="center">
     <v-col class="pa-1">
-      <v-btn color="orange" block @click="toggleDialog">
+      <v-btn color="orange" block @click.stop="toggleDialog">
         <v-icon left>mdi-magnify</v-icon>
         Search
       </v-btn>

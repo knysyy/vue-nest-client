@@ -3,12 +3,15 @@
     <v-row dense>
       <v-col cols="12">
         <v-card v-for="snippet of snippets" :key="snippet.key" class="mb-3">
-          <v-toolbar color="success" dark flat>
+          <v-toolbar color="success" flat>
             <v-toolbar-title>{{ snippet.title }}</v-toolbar-title>
           </v-toolbar>
           <v-subheader>
             {{ snippet.description }}
           </v-subheader>
+          <v-chip color="primary" class="ma-2 ml-4" small>
+            {{ snippet.language.title }}
+          </v-chip>
           <v-chip
             v-for="label of snippet.labels"
             :key="label.id"

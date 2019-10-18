@@ -7,14 +7,13 @@
     floating
     persistent
   >
-    <template v-slot:img="attrs">
-      <v-img
-        v-bind="attrs"
-        gradient="to top, rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)"
-      />
-    </template>
-
     <v-list nav>
+      <v-list-item>
+        <v-list-item-title>
+          Snippet App
+        </v-list-item-title>
+      </v-list-item>
+      <v-divider />
       <v-list-item
         v-for="(link, i) in links"
         :key="i"
@@ -94,6 +93,9 @@ export default {
       await this.$router.push("/login");
       this.setSnackBarText("Logout Successfully");
       this.setSnackBar(true);
+    },
+    onClick() {
+      this.setDrawer(!this.$store.state.app.drawer);
     }
   }
 };
