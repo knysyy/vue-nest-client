@@ -16,7 +16,7 @@ export default {
   },
   async signup({ commit, dispatch }, user) {
     commit("authRequest");
-    const res = await axios("/auth/signup", user).catch(err => {
+    const res = await axios.post("/auth/signup", user).catch(err => {
       localStorage.removeItem("access_token");
       commit("authError", err);
       throw err;
