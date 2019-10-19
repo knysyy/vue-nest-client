@@ -16,7 +16,7 @@ axios.interceptors.response.use(
     }
   }
 );
-axios.defaults.baseURL = "http://localhost:3000/api";
+axios.defaults.baseURL = "/api";
 const token = localStorage.getItem("access_token");
 
 if (token) {

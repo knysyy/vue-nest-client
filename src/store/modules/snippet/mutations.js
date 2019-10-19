@@ -2,8 +2,10 @@ import { set, toggle } from "@/utils/vuex";
 import * as snippetsStatuses from "./statuses";
 
 export default {
-  setDialog: set("dialog"),
-  toggleDialog: toggle("dialog"),
+  setSearchDialog: set("searchDialog"),
+  toggleSearchDialog: toggle("searchDialog"),
+  setAddDialog: set("addDialog"),
+  toggleAddDialog: toggle("addDialog"),
   snippetsRequest(state) {
     state.status = snippetsStatuses.SNIPPET_LOADING;
     state.err = null;

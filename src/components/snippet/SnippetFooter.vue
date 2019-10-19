@@ -1,13 +1,13 @@
 <template>
   <v-row justify="center">
     <v-col class="pa-1">
-      <v-btn color="orange" block @click.stop="toggleDialog">
+      <v-btn color="orange" block @click.stop="toggleSearchDialog">
         <v-icon left>mdi-magnify</v-icon>
         Search
       </v-btn>
     </v-col>
     <v-col class="pa-1">
-      <v-btn color="orange" block>
+      <v-btn color="orange" block @click.stop="toggleAddDialog">
         <v-icon left>mdi-plus</v-icon>
         Add
       </v-btn>
@@ -19,7 +19,7 @@
 import { mapMutations } from "vuex";
 export default {
   methods: {
-    ...mapMutations("snippet", ["toggleDialog"])
+    ...mapMutations("snippet", ["toggleSearchDialog", "toggleAddDialog"])
   }
 };
 </script>

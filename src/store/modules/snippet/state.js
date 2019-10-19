@@ -2,7 +2,8 @@ import * as snippetsStatuses from "./statuses";
 
 export default {
   status: snippetsStatuses.SNIPPET_DEFAULT,
-  dialog: false,
+  searchDialog: false,
+  addDialog: false,
   snippets: [],
   languages: [],
   err: null

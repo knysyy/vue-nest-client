@@ -8,7 +8,7 @@
     >
       <v-card>
         <v-toolbar color="success" flat>
-          <v-toolbar-title>Snippets Search</v-toolbar-title>
+          <v-toolbar-title>Snippets Add</v-toolbar-title>
         </v-toolbar>
         <v-card-text>
           <v-container>
@@ -23,7 +23,7 @@
                 ></v-text-field>
               </v-col>
               <v-col cols="12" sm="6" md="4">
-                <v-text-field label="Content" v-model="content"></v-text-field>
+                <v-textarea label="Content" v-model="content"></v-textarea>
               </v-col>
               <v-col cols="12">
                 <v-select
@@ -38,8 +38,7 @@
                   item-value="id"
                   :items="languages"
                   label="Language"
-                  multiple
-                  v-model="languageIds"
+                  v-model="languageId"
                 ></v-autocomplete>
               </v-col>
               <v-col cols="12" sm="6">
@@ -57,8 +56,8 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="success" text @click="toggleSearchDialog">Close</v-btn>
-          <v-btn color="success" text @click="search">Search</v-btn>
+          <v-btn color="success" text @click="toggleAddDialog">Close</v-btn>
+          <v-btn color="success" text @click="add">Add</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -73,14 +72,10 @@ export default {
       title: "",
       description: "",
       content: "",
-      favorite: null,
-      languageIds: [],
+      favorite: false,
+      languageId: null,
       labelIds: [],
       favoriteData: [
-        {
-          text: "not select",
-          value: null
-        },
         {
           text: "True",
           value: true
@@ -95,10 +90,10 @@ export default {
   computed: {
     dialog: {
       get() {
-        return this.$store.state.snippet.searchDialog;
+        return this.$store.state.snippet.addDialog;
       },
       set(val) {
-        this.setSearchDialog(val);
+        this.setAddDialog(val);
       }
     },
     languages() {
@@ -109,14 +104,14 @@ export default {
     }
   },
   methods: {
-    ...mapMutations("snippet", ["setSearchDialog", "toggleSearchDialog"]),
-    search() {
+    ...mapMutations("snippet", ["setAddDialog", "toggleAddDialog"]),
+    add() {
       const {
         title,
         description,
         content,
         favorite,
-        languageIds,
+        languageId,
         labelIds
       } = this;
 
@@ -125,11 +120,11 @@ export default {
         description,
         content,
         favorite,
-        languageIds,
+        languageId,
         labelIds
       };
-      this.$store.dispatch("snippet/getSnippets", context);
-      this.toggleSearchDialog();
+      this.$store.dispatch("snippet/createSnippet", context);
+      this.toggleAddDialog();
     }
   }
 };

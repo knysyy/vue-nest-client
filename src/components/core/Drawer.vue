@@ -3,7 +3,6 @@
     v-model="inputValue"
     app
     color="grey darken-2"
-    dark
     floating
     persistent
   >
@@ -54,11 +53,6 @@ export default {
         text: "Dashboard"
       },
       {
-        to: "/user",
-        icon: "mdi-account",
-        text: "User Profile"
-      },
-      {
         to: "/snippet",
         icon: "mdi-code-tags",
         text: "Snippet"
@@ -67,6 +61,11 @@ export default {
         to: "/label",
         icon: "mdi-label",
         text: "Label"
+      },
+      {
+        to: "/user",
+        icon: "mdi-account",
+        text: "User Profile"
       }
     ]
   }),
