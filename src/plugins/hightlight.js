@@ -5,6 +5,6 @@ import HighLightJS from "highlight.js";
 import vue from "vue-highlight.js/lib/languages/vue";
 
 HighLightJS.registerLanguage("vue", vue);
-import "highlight.js/styles/solarized-dark.css";
+import "highlight.js/styles/a11y-dark.css";
 
 Vue.use(VueHighlightJS);

@@ -16,7 +16,8 @@ axios.interceptors.response.use(
     }
   }
 );
-axios.defaults.baseURL = "/api";
+axios.defaults.baseURL =
+  process.env.NODE_ENV === "production" ? "/api" : "http://localhost:3000/api";
 const token = localStorage.getItem("access_token");
 
 if (token) {

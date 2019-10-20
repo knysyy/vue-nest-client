@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-row dense>
-      <v-col v-for="snippet of snippets" :key="snippet.key" md="6">
+      <v-col v-for="snippet of snippets" :key="snippet.key" sm="12" md="6">
         <v-card class="mb-3">
           <v-toolbar color="success" flat>
             <v-toolbar-title>{{ snippet.title }}</v-toolbar-title>
@@ -23,10 +23,10 @@
               {{ label.title }}
             </v-chip>
           </div>
-          <v-card-text class="ma-0">
+          <v-card-text class="dark">
             <pre
+              class="hljs"
               v-html="getHighLight(snippet.content, snippet.language.title)"
-              class="black pa-3"
             ></pre>
           </v-card-text>
           <v-card-actions>
@@ -65,3 +65,9 @@ export default {
   }
 };
 </script>
+
+<style>
+pre.hljs {
+  width: 100%;
+}
+</style>

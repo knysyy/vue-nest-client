@@ -1,6 +1,11 @@
+import { set, toggle } from "@/utils/vuex";
 import * as labelsStatuses from "./statuses";
 
 export default {
+  setSearchDialog: set("searchDialog"),
+  toggleSearchDialog: toggle("searchDialog"),
+  setAddDialog: set("addDialog"),
+  toggleAddDialog: toggle("addDialog"),
   labelsRequest(state) {
     state.status = labelsStatuses.LABEL_LOADING;
     state.err = null;

@@ -5,6 +5,5 @@ export default {
   searchDialog: false,
   addDialog: false,
   snippets: [],
-  languages: [],
   err: null
 };
