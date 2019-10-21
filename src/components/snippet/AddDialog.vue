@@ -13,16 +13,26 @@
         <v-card-text>
           <v-container>
             <v-row>
-              <v-col cols="12" sm="6" md="4">
+              <v-col cols="12" sm="6" md="6">
                 <v-text-field label="Title" v-model="title"></v-text-field>
               </v-col>
-              <v-col cols="12" sm="6" md="4">
+              <v-col cols="12" sm="6" md="6">
                 <v-text-field
                   label="Description"
                   v-model="description"
                 ></v-text-field>
               </v-col>
-              <v-col cols="12" sm="6" md="4">
+              <v-col cols="12" sm="12" md="12">
+                <v-label>Labels</v-label>
+                <vue-tags-input
+                  placeholder=""
+                  v-model="tag"
+                  :tags="tags"
+                  :autocomplete-items="preProcessing"
+                  @tags-changed="newTags => (tags = newTags)"
+                ></vue-tags-input>
+              </v-col>
+              <v-col cols="12" sm="12" md="12">
                 <v-textarea label="Content" v-model="content"></v-textarea>
               </v-col>
               <v-col cols="12">
@@ -41,23 +51,13 @@
                   v-model="languageId"
                 ></v-autocomplete>
               </v-col>
-              <v-col cols="12" sm="6">
-                <v-autocomplete
-                  item-text="title"
-                  item-value="id"
-                  :items="labels"
-                  label="Label"
-                  multiple
-                  v-model="labelIds"
-                ></v-autocomplete>
-              </v-col>
             </v-row>
           </v-container>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="success" text @click="toggleAddDialog">Close</v-btn>
-          <v-btn color="success" text @click="add">Add</v-btn>
+          <v-btn color="success" text @click="addLabel">Add</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -66,15 +66,17 @@
 
 <script>
 import { mapMutations } from "vuex";
+import VueTagsInput from "@johmun/vue-tags-input";
 export default {
   data() {
     return {
+      tag: "",
+      tags: [],
       title: "",
       description: "",
       content: "",
       favorite: false,
       languageId: null,
-      labelIds: [],
       favoriteData: [
         {
           text: "True",
@@ -84,7 +86,8 @@ export default {
           text: "False",
           value: false
         }
-      ]
+      ],
+      handlers: []
     };
   },
   computed: {
@@ -99,22 +102,37 @@ export default {
     languages() {
       return this.$store.state.language.languages;
     },
-    labels() {
-      return this.$store.state.label.labels;
+    preProcessing() {
+      return this.$store.state.label.labels
+        .filter(label => {
+          return (
+            label.title.toLowerCase().indexOf(this.tag.toLowerCase()) !== -1
+          );
+        })
+        .map(label => {
+          return {
+            ...label,
+            text: label.title
+          };
+        });
     }
   },
   methods: {
     ...mapMutations("snippet", ["setAddDialog", "toggleAddDialog"]),
-    add() {
-      const {
-        title,
-        description,
-        content,
-        favorite,
-        languageId,
-        labelIds
-      } = this;
-
+    async addLabel() {
+      const { title, description, content, favorite, languageId } = this;
+      const labelIds = await Promise.all(
+        this.tags.map(async tags => {
+          if (tags.id) {
+            return tags.id;
+          }
+          const label = await this.$store.dispatch(
+            "label/createLabel",
+            tags.text
+          );
+          return label.id;
+        })
+      );
       const context = {
         title,
         description,
@@ -123,9 +141,26 @@ export default {
         languageId,
         labelIds
       };
-      this.$store.dispatch("snippet/createSnippet", context);
+      await this.$store.dispatch("snippet/createSnippet", context);
       this.toggleAddDialog();
     }
+  },
+  components: {
+    VueTagsInput
   }
 };
 </script>
+
+<style>
+.vue-tags-input {
+  background-color: #424242 !important;
+  border-bottom: 1px white solid;
+}
+.vue-tags-input .ti-autocomplete {
+  background-color: #424242;
+  border: 1px white solid;
+}
+.vue-tags-input .ti-input {
+  border: none;
+}
+</style>

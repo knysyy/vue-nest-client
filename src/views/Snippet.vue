@@ -1,7 +1,13 @@
 <template>
   <v-container fluid>
     <v-row dense>
-      <v-col v-for="snippet of snippets" :key="snippet.key" sm="12" md="6">
+      <v-col
+        v-for="snippet of snippets"
+        :key="snippet.key"
+        cols="12"
+        sm="12"
+        md="6"
+      >
         <v-card class="mb-3">
           <v-toolbar color="success" flat>
             <v-toolbar-title>{{ snippet.title }}</v-toolbar-title>

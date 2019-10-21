@@ -17,9 +17,9 @@ export default {
     commit("labelsSuccess", labels);
     return null;
   },
-  async createLabel({ commit, dispatch }, title) {
+  async createLabel({ state, commit, dispatch }, title) {
     commit("labelsRequest");
-    await axios
+    const res = await axios
       .post("/labels/create", {
         title
       })
@@ -27,8 +27,11 @@ export default {
         commit("labelsError", err);
         throw err;
       });
-    dispatch("getLabels");
-    return null;
+    const label = res.data.data;
+    const labels = state.labels;
+    labels.push(label);
+    dispatch("labelsSuccess", labels);
+    return label;
   },
   async deleteLabel({ commit, dispatch }, labelId) {
     commit("labelsRequest");

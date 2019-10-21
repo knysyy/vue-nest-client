@@ -78,7 +78,7 @@ export default {
       labelIds: [],
       favoriteData: [
         {
-          text: "not select",
+          text: "",
           value: null
         },
         {
