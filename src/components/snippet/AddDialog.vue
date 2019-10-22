@@ -119,9 +119,9 @@ export default {
   },
   methods: {
     ...mapMutations("snippet", ["setAddDialog", "toggleAddDialog"]),
-    async addLabel() {
+    addLabel() {
       const { title, description, content, favorite, languageId } = this;
-      const labelIds = await Promise.all(
+      Promise.all(
         this.tags.map(async tags => {
           if (tags.id) {
             return tags.id;
@@ -132,26 +132,28 @@ export default {
           );
           return label.id;
         })
-      );
-      const context = {
-        title,
-        description,
-        content,
-        favorite,
-        languageId,
-        labelIds
-      };
-      await this.$store
-        .dispatch("snippet/createSnippet", context)
-        .catch(err => {
-          if (err.message === "Network Error") {
-            this.$store.dispatch("app/openSnackBar", {
-              text: "Network Error Occurred",
-              color: "error"
-            });
-          }
+      )
+        .then(async labelIds => {
+          const context = {
+            title,
+            description,
+            content,
+            favorite,
+            languageId,
+            labelIds
+          };
+          await this.$store.dispatch("snippet/createSnippet", context);
+          this.toggleAddDialog();
+        })
+        .catch(this.handleError);
+    },
+    handleError(err) {
+      if (err.message === "Network Error") {
+        this.$store.dispatch("app/openSnackBar", {
+          text: "Network Error Occurred",
+          color: "error"
         });
-      this.toggleAddDialog();
+      }
     }
   },
   components: {

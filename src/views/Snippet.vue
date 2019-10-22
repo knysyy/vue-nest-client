@@ -16,7 +16,12 @@
             {{ snippet.description }}
           </v-subheader>
           <div class="ml-2">
-            <v-chip color="primary" class="ma-2" small>
+            <v-chip
+              v-if="snippet.language.title"
+              color="primary"
+              class="ma-2"
+              small
+            >
               {{ snippet.language.title }}
             </v-chip>
             <v-chip

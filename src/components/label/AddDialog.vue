@@ -54,14 +54,25 @@ export default {
     ...mapMutations("label", ["setAddDialog", "toggleAddDialog"]),
     add() {
       const { title } = this;
-      this.$store.dispatch("label/createLabel", title).then(() => {
-        this.$store.dispatch("app/openSnackBar", {
-          text: "Added Label",
-          color: "primary"
+      this.$store
+        .dispatch("label/createLabel", title)
+        .then(() => {
+          this.$store.dispatch("app/openSnackBar", {
+            text: "Added Label",
+            color: "primary"
+          });
+          this.toggleAddDialog();
+          this.title = "";
+        })
+        .catch(err => {
+          console.log(err);
+          if (err.message === "Network Error") {
+            this.$store.dispatch("app/openSnackBar", {
+              text: "Network Error Occurred",
+              color: "error"
+            });
+          }
         });
-      });
-      this.toggleAddDialog();
-      this.title = "";
     }
   }
 };

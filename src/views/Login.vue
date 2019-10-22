@@ -71,11 +71,18 @@ export default {
             color: "primary"
           });
         })
-        .catch(async () => {
-          await this.$store.dispatch("app/openSnackBar", {
-            text: "Email Or Password is wrong",
-            color: "error"
-          });
+        .catch(async err => {
+          if (err.message === "Network Error") {
+            await this.$store.dispatch("app/openSnackBar", {
+              text: "Network Error Occurred",
+              color: "error"
+            });
+          } else {
+            await this.$store.dispatch("app/openSnackBar", {
+              text: "Email Or Password is wrong",
+              color: "error"
+            });
+          }
         });
     }
   }
