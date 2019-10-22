@@ -81,17 +81,14 @@ export default {
     }
   },
   methods: {
-    ...mapMutations("app", [
-      "setDrawer",
-      "toggleDrawer",
-      "setSnackBarText",
-      "setSnackBar"
-    ]),
+    ...mapMutations("app", ["setDrawer"]),
     async logout() {
       await this.$store.dispatch("auth/logout");
       await this.$router.push("/login");
-      this.setSnackBarText("Logout Successfully");
-      this.setSnackBar(true);
+      await this.$store.dispatch("app/openSnackBar", {
+        text: "Logout Successfully",
+        color: "success"
+      });
     },
     onClick() {
       this.setDrawer(!this.$store.state.app.drawer);

@@ -51,7 +51,6 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -60,11 +59,6 @@ export default {
     };
   },
   methods: {
-    ...mapMutations("app", [
-      "setSnackBar",
-      "setSnackBarText",
-      "setSnackBarColor"
-    ]),
     login: async function() {
       const email = this.email;
       const password = this.password;
@@ -72,14 +66,16 @@ export default {
         .dispatch("auth/login", { email, password })
         .then(async () => {
           await this.$router.push(this.$route.query.redirect || "/");
-          this.setSnackBarText("Login Successfully");
-          this.setSnackBarColor("primary");
-          this.setSnackBar(true);
+          await this.$store.dispatch("app/openSnackBar", {
+            text: "Login Successfully",
+            color: "primary"
+          });
         })
-        .catch(() => {
-          this.setSnackBarText("Email Or Password is wrong");
-          this.setSnackBarColor("error");
-          this.setSnackBar(true);
+        .catch(async () => {
+          await this.$store.dispatch("app/openSnackBar", {
+            text: "Email Or Password is wrong",
+            color: "error"
+          });
         });
     }
   }

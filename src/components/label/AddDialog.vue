@@ -52,17 +52,13 @@ export default {
   },
   methods: {
     ...mapMutations("label", ["setAddDialog", "toggleAddDialog"]),
-    ...mapMutations("app", [
-      "setSnackBar",
-      "setSnackBarText",
-      "setSnackBarColor"
-    ]),
     add() {
       const { title } = this;
       this.$store.dispatch("label/createLabel", title).then(() => {
-        this.setSnackBarText("Added Label");
-        this.setSnackBarColor("primary");
-        this.setSnackBar(true);
+        this.$store.dispatch("app/openSnackBar", {
+          text: "Added Label",
+          color: "primary"
+        });
       });
       this.toggleAddDialog();
       this.title = "";

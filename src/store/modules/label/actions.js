@@ -10,7 +10,7 @@ export default {
         }
       })
       .catch(err => {
-        commit("labelsError", err);
+        commit("labelsError", err.message);
         throw err;
       });
     const labels = res.data.data.labels;
@@ -24,7 +24,7 @@ export default {
         title
       })
       .catch(err => {
-        commit("labelsError", err);
+        commit("labelsError", err.message);
         throw err;
       });
     const label = res.data.data;
@@ -36,7 +36,7 @@ export default {
   async deleteLabel({ commit, dispatch }, labelId) {
     commit("labelsRequest");
     await axios.get(`/labels/delete/${labelId}`).catch(err => {
-      commit("labelsError", err);
+      commit("labelsError", err.message);
       throw err;
     });
     dispatch("getLabels");

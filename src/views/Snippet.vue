@@ -56,13 +56,32 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch("snippet/getSnippets");
-    this.$store.dispatch("language/getLanguages");
-    this.$store.dispatch("label/getLabels");
+    Promise.all([
+      this.getSnippets(),
+      this.$store.dispatch("language/getLanguages"),
+      this.$store.dispatch("label/getLabels")
+    ]).catch(err => {
+      if (err.message === "Network Error") {
+        this.$store.dispatch("app/openSnackBar", {
+          text: "Network Error Occurred",
+          color: "error"
+        });
+      }
+    });
+  },
+  watch: {
+    $route: "getSnippets"
   },
   methods: {
     getHighLight(content, language) {
       return hljs.highlightAuto(content, [language]).value;
+    },
+    async getSnippets() {
+      const labelId = parseInt(this.$route.query.labelId, 10);
+      await this.$store.dispatch(
+        "snippet/getSnippets",
+        isNaN(labelId) ? {} : { labelIds: [labelId] }
+      );
     }
   },
   components: {

@@ -7,12 +7,23 @@ axios.interceptors.response.use(
     return res;
   },
   async err => {
-    if (err.response.status === 401) {
+    if (err.message === "Network Error") {
+      throw err;
+    }
+    if (err.response.status === 401 && router.currentRoute.name !== "Login") {
       store.commit("auth/logout");
-      store.commit("app/setSnackBarText", "Please Login");
-      store.commit("app/setSnackBarColor", "error");
-      store.commit("app/setSnackBar", true);
-      await router.push("/login");
+      await store.dispatch("app/openSnackBar", {
+        text: "Please Login",
+        color: "error"
+      });
+      await router.push({
+        path: "/login",
+        query: { redirect: router.currentRoute.fullPath }
+      });
+      throw err;
+    }
+    if (err.response.status === 400) {
+      throw err;
     }
   }
 );

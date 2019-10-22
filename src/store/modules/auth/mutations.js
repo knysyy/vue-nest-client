@@ -12,6 +12,7 @@ export default {
   authError(state, err) {
     state.status = authStatuses.AUTH_ERROR;
     state.error = err;
+    state.token = null;
   },
   logout(state) {
     state.status = authStatuses.AUTH_DEFAULT;

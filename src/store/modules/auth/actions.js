@@ -38,7 +38,9 @@ export default {
     return null;
   },
   async getUser({ commit }) {
-    const res = await axios.get("/user");
+    const res = await axios.get("/user").catch(err => {
+      throw err;
+    });
     const user = res.data.data;
     commit("setUser", user);
   }

@@ -67,15 +67,19 @@
 
 <script>
 import { mapMutations } from "vuex";
+const initialData = {
+  title: "",
+  description: "",
+  content: "",
+  favorite: null,
+  languageIds: [],
+  labelIds: []
+};
+
 export default {
   data() {
     return {
-      title: "",
-      description: "",
-      content: "",
-      favorite: null,
-      languageIds: [],
-      labelIds: [],
+      ...initialData,
       favoriteData: [
         {
           text: "",
@@ -128,8 +132,16 @@ export default {
         languageIds,
         labelIds
       };
-      this.$store.dispatch("snippet/getSnippets", context);
+      this.$store.dispatch("snippet/getSnippets", context).catch(err => {
+        if (err.message === "Network Error") {
+          this.$store.dispatch("app/openSnackBar", {
+            text: "Network Error Occurred",
+            color: "error"
+          });
+        }
+      });
       this.toggleSearchDialog();
+      Object.assign(this, initialData);
     }
   }
 };

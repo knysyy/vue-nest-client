@@ -141,7 +141,16 @@ export default {
         languageId,
         labelIds
       };
-      await this.$store.dispatch("snippet/createSnippet", context);
+      await this.$store
+        .dispatch("snippet/createSnippet", context)
+        .catch(err => {
+          if (err.message === "Network Error") {
+            this.$store.dispatch("app/openSnackBar", {
+              text: "Network Error Occurred",
+              color: "error"
+            });
+          }
+        });
       this.toggleAddDialog();
     }
   },

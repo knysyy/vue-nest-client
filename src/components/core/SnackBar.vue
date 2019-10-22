@@ -16,7 +16,7 @@
 import { mapMutations, mapState } from "vuex";
 export default {
   data: () => ({
-    timeout: 3000
+    timeout: 2000
   }),
   computed: {
     ...mapState("app", ["snackbarText", "snackbarColor"]),

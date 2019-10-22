@@ -54,7 +54,14 @@ export default {
     ...mapMutations("label", ["setSearchDialog", "toggleSearchDialog"]),
     search() {
       const { title } = this;
-      this.$store.dispatch("label/getLabels", title);
+      this.$store.dispatch("label/getLabels", title).catch(err => {
+        if (err.message === "Network Error") {
+          this.$store.dispatch("app/openSnackBar", {
+            text: "Network Error Occurred",
+            color: "error"
+          });
+        }
+      });
       this.toggleSearchDialog();
       this.title = "";
     }

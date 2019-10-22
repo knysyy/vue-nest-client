@@ -11,7 +11,7 @@
           <v-card-actions>
             <v-spacer />
             <v-btn
-              :to="{ path: '/snippets', query: { labelId: label.id } }"
+              :to="{ path: '/snippet', query: { labelId: label.id } }"
               icon
             >
               <v-icon>mdi-magnify</v-icon>
@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
 export default {
   computed: {
     labels() {
@@ -37,20 +36,27 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch("label/getLabels");
+    this.$store.dispatch("label/getLabels").catch(this.handleError);
   },
   methods: {
-    ...mapMutations("app", [
-      "setSnackBar",
-      "setSnackBarText",
-      "setSnackBarColor"
-    ]),
     deleteLabel(labelTitle, labelId) {
-      this.$store.dispatch("label/deleteLabel", labelId).then(() => {
-        this.setSnackBarText("Deleted Label");
-        this.setSnackBarColor("primary");
-        this.setSnackBar(true);
-      });
+      this.$store
+        .dispatch("label/deleteLabel", labelId)
+        .then(() => {
+          this.$store.dispatch("app/openSnackBar", {
+            text: "Deleted Label",
+            color: "primary"
+          });
+        })
+        .catch(this.handleError);
+    },
+    handleError(err) {
+      if (err.message === "Network Error") {
+        this.$store.dispatch("app/openSnackBar", {
+          text: "Network Error Occurred",
+          color: "error"
+        });
+      }
     }
   },
   components: {
