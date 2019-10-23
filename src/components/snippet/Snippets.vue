@@ -52,7 +52,9 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn color="success">Edit</v-btn>
+          <v-btn color="success" :to="{ path: `/snippet/${snippet.id}` }"
+            >Edit</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-col>

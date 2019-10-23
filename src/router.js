@@ -9,6 +9,7 @@ import Snippet from "./views/Snippet";
 import Label from "./views/Label";
 import SnippetFooter from "./components/snippet/SnippetFooter";
 import LabelFooter from "./components/label/LabelFooter";
+import EditSnippet from "./views/EditSnippet";
 
 Vue.use(Router);
 
@@ -61,6 +62,11 @@ let router = new Router({
         default: Snippet,
         snippet: SnippetFooter
       }
+    },
+    {
+      path: "/snippet/:id",
+      name: "Edit Snippet",
+      component: EditSnippet
     },
     {
       path: "/label",

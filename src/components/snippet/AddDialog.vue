@@ -71,7 +71,7 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="success" text @click="close">Close</v-btn>
-            <v-btn color="success" text :disabled="!valid" @click="addLabel"
+            <v-btn color="success" text :disabled="!valid" @click="addSnippet"
               >Add</v-btn
             >
           </v-card-actions>
@@ -152,7 +152,7 @@ export default {
       this.$refs.form.reset();
       this.$refs.form.resetValidation();
     },
-    addLabel() {
+    addSnippet() {
       const { title, description, content, favorite, languageId } = this;
       Promise.all(
         this.tags.map(async tags => {
@@ -176,6 +176,10 @@ export default {
             labelIds
           };
           await this.$store.dispatch("snippet/createSnippet", context);
+          await this.$store.dispatch("app/openSnackBar", {
+            text: "Added a Snippet",
+            color: "primary"
+          });
           this.toggleAddDialog();
         })
         .catch(this.handleError);

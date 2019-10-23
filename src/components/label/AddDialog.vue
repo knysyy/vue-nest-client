@@ -78,7 +78,7 @@ export default {
         .dispatch("label/createLabel", title)
         .then(() => {
           this.$store.dispatch("app/openSnackBar", {
-            text: "Added Label",
+            text: "Added a Label",
             color: "primary"
           });
           this.toggleAddDialog();

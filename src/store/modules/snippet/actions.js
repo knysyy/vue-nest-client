@@ -8,7 +8,8 @@ export default {
       throw err;
     });
     const snippets = res.data.data.snippets;
-    commit("snippetsSuccess", snippets);
+    commit("setSnippets", snippets);
+    commit("snippetsSuccess");
     return null;
   },
   async createSnippet({ commit, dispatch }, context = {}) {
@@ -17,7 +18,19 @@ export default {
       commit("snippetsError", err);
       throw err;
     });
+    commit("snippetsSuccess");
     dispatch("getSnippets");
+    return null;
+  },
+  async updateSnippet({ commit }, context = {}) {
+    commit("snippetsRequest");
+    const res = await axios.post("/snippets/edit", context).catch(err => {
+      commit("snippetsError", err);
+      throw err;
+    });
+    const snippet = res.data.data;
+    commit("setSnippet", snippet);
+    commit("snippetsSuccess");
     return null;
   },
   async favoriteSnippet({ state, commit }, context = {}) {
@@ -32,7 +45,8 @@ export default {
       }
       return snippet;
     });
-    commit("snippetsSuccess", snippets);
+    commit("setSnippets", snippets);
+    commit("snippetsSuccess");
     return null;
   }
 };

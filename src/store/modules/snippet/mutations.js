@@ -10,12 +10,23 @@ export default {
     state.status = snippetsStatuses.SNIPPET_LOADING;
     state.err = null;
   },
-  snippetsSuccess(state, snippets) {
+  snippetsSuccess(state) {
     state.status = snippetsStatuses.SNIPPET_SUCCESS;
-    state.snippets = snippets;
   },
   snippetsError(state, err) {
     state.status = snippetsStatuses.SNIPPET_ERROR;
     state.error = err;
+  },
+  setSnippets(state, snippets) {
+    state.snippets = snippets;
+  },
+  setSnippet(state, newSnippet) {
+    const snippets = state.snippets;
+    state.snippets = snippets.map(snippet => {
+      if (snippet.id === newSnippet) {
+        return newSnippet;
+      }
+      return snippet;
+    });
   }
 };
