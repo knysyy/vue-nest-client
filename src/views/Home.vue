@@ -1,13 +1,28 @@
 <template>
-  <HelloWorld />
+  <v-container fluid>
+    <snippets />
+  </v-container>
 </template>
 
 <script>
-import HelloWorld from "../components/HelloWorld";
-
 export default {
+  mounted() {
+    this.getSnippets().catch(err => {
+      if (err.message === "Network Error") {
+        this.$store.dispatch("app/openSnackBar", {
+          text: "Network Error Occurred",
+          color: "error"
+        });
+      }
+    });
+  },
+  methods: {
+    async getSnippets() {
+      await this.$store.dispatch("snippet/getSnippets", { favorite: true });
+    }
+  },
   components: {
-    HelloWorld
+    Snippets: () => import("@/components/snippet/Snippets")
   }
 };
 </script>

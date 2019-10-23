@@ -19,5 +19,20 @@ export default {
     });
     dispatch("getSnippets");
     return null;
+  },
+  async favoriteSnippet({ state, commit }, context = {}) {
+    commit("snippetsRequest");
+    await axios.post("/snippets/favorite", context).catch(err => {
+      commit("snippetsError", err);
+      throw err;
+    });
+    const snippets = state.snippets.map(snippet => {
+      if (snippet.id === context.id) {
+        snippet.favorite = context.favorite;
+      }
+      return snippet;
+    });
+    commit("snippetsSuccess", snippets);
+    return null;
   }
 };
