@@ -14,15 +14,25 @@
           <v-container>
             <v-row>
               <v-col cols="12" sm="6" md="4">
-                <v-text-field label="Title" v-model="title"></v-text-field>
+                <v-form ref="form" v-model="valid" :lazy-validation="lazy">
+                  <v-text-field
+                    label="Title"
+                    v-model="title"
+                    :counter="50"
+                    :rules="titleRules"
+                    required
+                  ></v-text-field>
+                </v-form>
               </v-col>
             </v-row>
           </v-container>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="success" text @click="toggleAddDialog">Close</v-btn>
-          <v-btn color="success" text @click="add">Add</v-btn>
+          <v-btn color="success" text @click="close">Close</v-btn>
+          <v-btn color="success" text :disabled="!valid" @click="addLabel"
+            >Add</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -34,7 +44,13 @@ import { mapMutations } from "vuex";
 export default {
   data() {
     return {
-      title: ""
+      title: "",
+      valid: true,
+      lazy: false,
+      titleRules: [
+        v => !!v || "Title is Required",
+        v => (v && v.length <= 50) || "Title must be less than 50 characters"
+      ]
     };
   },
   computed: {
@@ -52,7 +68,11 @@ export default {
   },
   methods: {
     ...mapMutations("label", ["setAddDialog", "toggleAddDialog"]),
-    add() {
+    reset() {
+      this.$refs.form.reset();
+      this.$refs.form.resetValidation();
+    },
+    addLabel() {
       const { title } = this;
       this.$store
         .dispatch("label/createLabel", title)
@@ -73,6 +93,10 @@ export default {
             });
           }
         });
+    },
+    close() {
+      this.reset();
+      this.toggleAddDialog();
     }
   }
 };
