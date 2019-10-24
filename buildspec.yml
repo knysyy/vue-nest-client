@@ -1,0 +1,22 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo install yarn
+      - npm install -g yarn
+  pre_build:
+    commands:
+      - echo install dependencies
+      - yarn install
+  build:
+    commands:
+      - echo build
+      - yarn build
+  post_build:
+    commands:
+      - echo build finish
+artifacts:
+  files:
+    - '**/*'
+  base-directory: dist
