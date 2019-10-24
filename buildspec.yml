@@ -5,19 +5,21 @@ phases:
     runtime-versions:
       nodejs: 10
     commands:
-      - echo install yarn
-      - npm install -g yarn
+      - echo update npm
+      - npm update -g npm
+      - echo npm -v
+      - npm -v
   pre_build:
     commands:
       - echo install dependencies
-      - yarn
+      - npm install
   build:
     commands:
       - echo build
-      - yarn build
+      - npm run build
   post_build:
     commands:
-      - echo build finish
+      - echo build finished
 artifacts:
   files:
     - dist/**/*
