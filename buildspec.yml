@@ -10,7 +10,7 @@ phases:
   pre_build:
     commands:
       - echo install dependencies
-      - yarn install
+      - yarn
   build:
     commands:
       - echo build
@@ -20,5 +20,5 @@ phases:
       - echo build finish
 artifacts:
   files:
-    - '**/*'
-  base-directory: dist
+    - dist/**/*
+    - appspec.yml
