@@ -81,8 +81,7 @@ export default {
             text: "Added a Label",
             color: "primary"
           });
-          this.toggleAddDialog();
-          this.title = "";
+          this.close();
         })
         .catch(err => {
           console.log(err);

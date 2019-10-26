@@ -180,12 +180,13 @@ export default {
             text: "Added a Snippet",
             color: "primary"
           });
-          this.toggleAddDialog();
+          this.close();
         })
         .catch(this.handleError);
     },
     close() {
       this.reset();
+      this.tags = [];
       this.toggleAddDialog();
     },
     handleError(err) {

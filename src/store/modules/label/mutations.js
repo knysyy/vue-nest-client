@@ -10,12 +10,14 @@ export default {
     state.status = labelsStatuses.LABEL_LOADING;
     state.err = null;
   },
-  labelsSuccess(state, labels) {
+  labelsSuccess(state) {
     state.status = labelsStatuses.LABEL_SUCCESS;
-    state.labels = labels;
   },
   labelsError(state, err) {
     state.status = labelsStatuses.LABEL_ERROR;
     state.error = err;
+  },
+  setLabels(state, labels) {
+    state.labels = labels;
   }
 };
