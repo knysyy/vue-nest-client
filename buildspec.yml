@@ -7,6 +7,8 @@ phases:
     commands:
       - echo update npm
       - npm i npm@latest -g
+      - echo install vue-cli
+      - npm i @vue/cli -g
   pre_build:
     commands:
       - echo install dependencies

@@ -6,6 +6,11 @@
           <v-card class="elevation-12">
             <v-toolbar color="success" dark flat>
               <v-toolbar-title>Profile</v-toolbar-title>
+              <v-spacer />
+              <v-btn fab small @click="isEditing = !isEditing">
+                <v-icon v-if="isEditing">mdi-close</v-icon>
+                <v-icon v-else>mdi-pencil</v-icon>
+              </v-btn>
             </v-toolbar>
             <v-card-text>
               <div class="icon">
@@ -13,27 +18,28 @@
                   mdi-account
                 </v-icon>
               </div>
-              <v-list-item>
-                <v-list-item-icon>
-                  <v-icon left>mdi-account</v-icon>
-                  Name
-                </v-list-item-icon>
-                <v-list-item-subtitle>{{ user.name }}</v-list-item-subtitle>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-icon>
-                  <v-icon left>mdi-email</v-icon>
-                  Email
-                </v-list-item-icon>
-                <v-list-item-subtitle>{{ user.email }}</v-list-item-subtitle>
-              </v-list-item>
+              <v-form>
+                <v-text-field
+                  label="Name"
+                  prepend-icon="mdi-account"
+                  type="text"
+                  v-model="name"
+                  :disabled="!isEditing"
+                />
+                <v-text-field
+                  label="Email"
+                  prepend-icon="mdi-email"
+                  type="email"
+                  v-model="email"
+                  :disabled="!isEditing"
+                />
+              </v-form>
             </v-card-text>
             <v-card-actions>
-              <v-row justify="center">
-                <v-btn color="success" min-width="200" to="/edit">
-                  Edit Profile
-                </v-btn>
-              </v-row>
+              <v-spacer />
+              <v-btn color="success" :disabled="!isEditing" @click="editUser">
+                Edit Profile
+              </v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -45,12 +51,56 @@
 <script>
 import { mapState } from "vuex";
 export default {
+  data() {
+    return {
+      isEditing: false,
+      name: "",
+      email: ""
+    };
+  },
   computed: {
     ...mapState("auth", ["user"])
   },
+  methods: {
+    setUser() {
+      const user = this.user;
+      this.name = user.name;
+      this.email = user.email;
+    },
+    editUser() {
+      const user = {
+        name: this.name,
+        email: this.email
+      };
+      this.$store
+        .dispatch("auth/editUser", user)
+        .then(async () => {
+          await this.$store.dispatch("app/openSnackBar", {
+            text: "Edit Successfully",
+            color: "primary"
+          });
+          this.isEditing = false;
+        })
+        .catch(async err => {
+          if (err.message === "Network Error") {
+            await this.$store.dispatch("app/openSnackBar", {
+              text: "Network Error Occurred",
+              color: "error"
+            });
+          }
+        });
+    }
+  },
+  watch: {
+    user() {
+      this.$nextTick(() => this.setUser());
+    }
+  },
   mounted() {
     const user = this.$store.state.auth.user;
-    if (!user.name || !user.email) {
+    if (!!user.name && !!user.email) {
+      this.setUser();
+    } else {
       this.$store.dispatch("auth/getUser");
     }
   }

@@ -37,6 +37,13 @@ export default {
     commit("logout");
     return null;
   },
+  async editUser({ commit }, user) {
+    const res = await axios.post("/user", user).catch(err => {
+      throw err;
+    });
+    const newUser = res.data.data;
+    commit("setUser", newUser);
+  },
   async getUser({ commit }) {
     const res = await axios.get("/user").catch(err => {
       throw err;

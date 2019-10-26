@@ -28,5 +28,11 @@ export default {
       }
       return snippet;
     });
+  },
+  deleteSnippet(state, snippetId) {
+    const snippets = state.snippets;
+    state.snippets = snippets.filter(snippet => {
+      return snippet.id !== snippetId;
+    });
   }
 };

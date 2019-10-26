@@ -33,6 +33,16 @@ export default {
     commit("snippetsSuccess");
     return null;
   },
+  async deleteSnippet({ commit }, snippetId) {
+    commit("snippetsRequest");
+    await axios.get(`/snippets/delete/${snippetId}`).catch(err => {
+      commit("snippetsError", err.message);
+      throw err;
+    });
+    commit("deleteSnippet", snippetId);
+    commit("snippetsSuccess");
+    return null;
+  },
   async favoriteSnippet({ state, commit }, context = {}) {
     commit("snippetsRequest");
     await axios.post("/snippets/favorite", context).catch(err => {

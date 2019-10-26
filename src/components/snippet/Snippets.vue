@@ -55,6 +55,7 @@
           <v-btn color="success" :to="{ path: `/snippet/${snippet.id}` }"
             >Edit</v-btn
           >
+          <v-btn color="error" @click="deleteSnippet(snippet.id)">Delete</v-btn>
         </v-card-actions>
       </v-card>
     </v-col>
@@ -75,6 +76,14 @@ export default {
     },
     async favoriteSnippet(id, favorite) {
       await this.$store.dispatch("snippet/favoriteSnippet", { id, favorite });
+    },
+    async deleteSnippet(snippetId) {
+      this.$store.dispatch("snippet/deleteSnippet", snippetId).then(() => {
+        this.$store.dispatch("app/openSnackBar", {
+          text: "Deleted Snippet",
+          color: "primary"
+        });
+      });
     }
   }
 };
