@@ -5,21 +5,17 @@ phases:
     runtime-versions:
       nodejs: 10
     commands:
-      - echo update npm
-      - npm i npm@latest -g
-      - echo install vue-cli
-      - npm i @vue/cli -g
+      - echo install yarn
+      - npm i yarn -g
   pre_build:
     commands:
-      - echo install dependencies
-      - npm install
+      - echo Installing source NPM dependencies...
+      - yarn
   build:
     commands:
-      - echo build
-      - npm run build
-  post_build:
-    commands:
-      - echo build finished
+      - echo build start
+      - yarn build
+      - echo build completed
 artifacts:
   files:
     - dist/**/*

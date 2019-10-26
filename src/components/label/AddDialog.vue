@@ -84,7 +84,6 @@ export default {
           this.close();
         })
         .catch(err => {
-          console.log(err);
           if (err.message === "Network Error") {
             this.$store.dispatch("app/openSnackBar", {
               text: "Network Error Occurred",
