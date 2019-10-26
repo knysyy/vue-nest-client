@@ -6,7 +6,7 @@ phases:
       nodejs: 10
     commands:
       - echo update npm
-      - npm i npmg@latest -g
+      - npm i npm@latest -g
   pre_build:
     commands:
       - echo install dependencies
