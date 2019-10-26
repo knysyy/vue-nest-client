@@ -90,6 +90,10 @@ export default {
 </script>
 
 <style>
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #424242 inset;
+  -webkit-text-fill-color: white !important;
+}
 .icon {
   text-align: center;
 }

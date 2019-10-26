@@ -13,7 +13,7 @@
                   mdi-account-plus
                 </v-icon>
               </div>
-              <v-form>
+              <v-form autocomplete="off">
                 <v-text-field
                   v-model="name"
                   label="Name"
@@ -31,6 +31,7 @@
                   label="Password"
                   prepend-icon="mdi-lock"
                   type="password"
+                  autocomplete="new-password"
                 />
               </v-form>
             </v-card-text>

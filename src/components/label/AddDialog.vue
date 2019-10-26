@@ -6,15 +6,15 @@
       transition="dialog-bottom-transition"
       max-width="500"
     >
-      <v-card>
-        <v-toolbar color="success" flat>
-          <v-toolbar-title>Label Add</v-toolbar-title>
-        </v-toolbar>
-        <v-card-text>
-          <v-container>
-            <v-row>
-              <v-col cols="12" sm="6" md="4">
-                <v-form ref="form" v-model="valid" :lazy-validation="lazy">
+      <v-form ref="form" v-model="valid" :lazy-validation="lazy">
+        <v-card>
+          <v-toolbar color="success" flat>
+            <v-toolbar-title>Label Add</v-toolbar-title>
+          </v-toolbar>
+          <v-card-text>
+            <v-container>
+              <v-row justify="center">
+                <v-col cols="10">
                   <v-text-field
                     label="Title"
                     v-model="title"
@@ -22,19 +22,19 @@
                     :rules="titleRules"
                     required
                   ></v-text-field>
-                </v-form>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="success" text @click="close">Close</v-btn>
-          <v-btn color="success" text :disabled="!valid" @click="addLabel"
-            >Add</v-btn
-          >
-        </v-card-actions>
-      </v-card>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="success" text @click="close">Close</v-btn>
+            <v-btn color="success" text :disabled="!valid" @click="addLabel"
+              >Add</v-btn
+            >
+          </v-card-actions>
+        </v-card>
+      </v-form>
     </v-dialog>
   </v-row>
 </template>

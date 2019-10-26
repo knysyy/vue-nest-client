@@ -6,17 +6,15 @@ phases:
       nodejs: 10
     commands:
       - echo update npm
-      - npm update -g yarn
-      - echo yarn -v
-      - yarn -v
+      - npm i npmg@latest -g
   pre_build:
     commands:
       - echo install dependencies
-      - yarn
+      - npm install
   build:
     commands:
       - echo build
-      - yarn build
+      - npm run build
   post_build:
     commands:
       - echo build finished
