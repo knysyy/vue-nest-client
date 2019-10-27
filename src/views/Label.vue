@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 export default {
   computed: {
     labels() {
@@ -39,6 +40,7 @@ export default {
     this.$store.dispatch("label/getLabels").catch(this.handleError);
   },
   methods: {
+    ...mapMutations("label", ["toggleAddDialog", "setSearchDialog"]),
     deleteLabel(labelTitle, labelId) {
       this.$store
         .dispatch("label/deleteLabel", labelId)
@@ -57,6 +59,22 @@ export default {
           color: "error"
         });
       }
+    }
+  },
+  beforeRouteLeave(to, from, next) {
+    if (this.$store.state.label.addDialog) {
+      const answer = window.confirm(
+        "Do you really want to leave? you have unsaved changes!"
+      );
+      if (answer) {
+        this.toggleAddDialog();
+      }
+      next(false);
+    } else if (this.$store.state.label.searchDialog) {
+      this.setSearchDialog(false);
+      next(false);
+    } else {
+      next();
     }
   },
   components: {

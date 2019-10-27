@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 export default {
   mounted() {
     Promise.all([
@@ -26,12 +27,29 @@ export default {
     $route: "getSnippets"
   },
   methods: {
+    ...mapMutations("snippet", ["toggleAddDialog", "setSearchDialog"]),
     async getSnippets() {
       const labelId = parseInt(this.$route.query.labelId, 10);
       await this.$store.dispatch(
         "snippet/getSnippets",
         isNaN(labelId) ? {} : { labelIds: [labelId] }
       );
+    }
+  },
+  beforeRouteLeave(to, from, next) {
+    if (this.$store.state.snippet.addDialog) {
+      const answer = window.confirm(
+        "Do you really want to leave? you have unsaved changes!"
+      );
+      if (answer) {
+        this.toggleAddDialog();
+      }
+      next(false);
+    } else if (this.$store.state.snippet.searchDialog) {
+      this.setSearchDialog(false);
+      next(false);
+    } else {
+      next();
     }
   },
   components: {
